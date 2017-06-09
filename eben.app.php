@@ -1,6 +1,7 @@
 <?php
 /**
  * Eben Micro Framework
+ * @author David BONDUKU
  * @version 0.1.alpha
  */
 namespace Eben;
