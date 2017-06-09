@@ -1,0 +1,16 @@
+Header always set Access-Control-Max-Age "1000"
+Header always set Access-Control-Allow-Headers "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding"
+Header always set Access-Control-Allow-Methods "POST, GET, PATCH, DELETE, PUT"
+SetOutputFilter INFLATE;proxy-html;DEFLATE
+AddOutputFilterByType DEFLATE application/x-javascript
+
+Options +FollowSymlinks
+
+Options All -Indexes
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^([a-zA-Z0-9\-\s+@<>ùéèàç,²*'$!_\:/]*)$ index.php [L]

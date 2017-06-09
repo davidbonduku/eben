@@ -1,0 +1,8 @@
+<?php
+/**
+* This is application front controller
+* Don't delete or change this file
+*/
+define('APP_ROOT', dirname(__FILE__));
+
+require_once 'eben/eben.app.php';

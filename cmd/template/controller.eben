@@ -1,0 +1,85 @@
+<?php
+/**
+ * @class $controller
+ */
+class $controller extends \Core\Controller
+{
+    /**
+    *@var $_model
+    */
+
+    private $_model;
+
+
+    public function __construct()
+    {
+        $this->_instantiateModel();
+    }
+
+    /**
+    * Instantiate model related to this controller
+    */
+
+    private function _instantiateModel()
+    {
+        $model = substr(__CLASS__,0,-1);
+        $this->_model = new $model();
+    }
+
+    /**
+     * Retrieve resource
+     * @param $id int the id of resource
+     * @return void
+     */
+
+    public function readAction( $id = null )
+    {
+        $data = null;
+
+        if( !is_null( $id ) )
+         {
+             $data = $this->_model->find( $id );
+
+         }else{
+
+             $data = ( !empty ( $this->queryString('limit') ) ) ?
+                $this->_model->all( $this->queryString('limit') ) :
+                $this->_model->all();
+         }
+
+         Core\Response::send( json_encode( $data ) );
+    }
+
+    /**
+     * Create resource
+     * @return void
+     */
+
+    public function createAction()
+    {
+        Core\Response::send('I got you');
+    }
+
+    /**
+     * Update resource
+     * @param $id int the id of resource
+     * @return void
+     */
+
+    public function updateAction( $id )
+    {
+        Core\Response::send('I got you');
+    }
+
+    /**
+     * Delete resource
+     * @param $id int the id of resource
+     * @return void
+     */
+
+    public function deleteAction( $id )
+    {
+        Core\Response::send('I got you');
+    }
+
+}

@@ -1,0 +1,17 @@
+<?php
+/**
+ * Configuration
+ */
+
+Core\DB::config( array(
+    'host' => 'localhost',
+    'db' => 'database',
+    'account' => 'account',
+    'password' => 'password',
+    'debug' => true
+));
+/**
+* Secret salt
+* Please change the value
+*/
+const __EBEN_SECRET__SALT__ = '&9ilI9!6%k#∞~';

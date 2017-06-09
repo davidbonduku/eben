@@ -1,0 +1,120 @@
+<?php
+/**
+ *@class $model
+ */
+class $model extends \Core\EbenORM
+{
+     /**
+     * @var array
+     */
+     public $props = array();
+
+     /**
+     * @param $attr
+     * @param $data
+     */
+     public function __set( $attr, $data )
+     {
+        $this->props[ $attr ] = $data;
+     }
+
+     /**
+     * @param $attr
+     * @return mixed
+     */
+     public function __get( $attr )
+     {
+        if( array_key_exists( $attr, $this->props ) )
+        {
+            return $this->props[ $attr ];
+        }else{
+             return;
+        }
+     }
+    /**
+     *
+     * @param $data
+     * @return string
+     */
+    public function create( $data = array() )
+    {
+        if( sizeof( $data ) > 0 )
+        {
+            $this->_prepare( $data );
+
+            if( $this->save() )
+            {
+                return $this->_succeeded();
+
+            }else{
+
+                return $this->_failed();
+            }
+        }else{
+
+           return $this->_nothingToDo();
+        }
+    }
+   /**
+    *
+    * @param $data
+    */
+    public function _prepare( $data = array() )
+    {
+        foreach( $data as $prop => $value )
+        {
+            $this->$prop = $value;
+        }
+    }
+
+    /**
+     * @return string
+     */
+    private function _failed()
+    {
+        return $this->message(
+            array(
+                'message' => 'Operation failed',
+                'code' => 400
+            )
+        );
+    }
+    /**
+    *@return string
+    */
+
+    private function _succeeded()
+    {
+        return $this->message(
+                  array(
+                       'message' => 'Operation succeeded',
+                       'code' => 201
+                )
+        );
+    }
+    /**
+     * @return string
+     */
+    private function _nothingToDo()
+    {
+        return $this->message(
+            array(
+                'message' => 'Nothing to do',
+                'code' => 204
+            )
+        );
+    }
+     /**
+      * @param $param
+      * @return string
+      */
+      public function message( $param )
+      {
+         return json_encode(
+                    array(
+                      'message' => $param['message'],
+                      'code' => $param['code']
+                  )
+         );
+      }
+}
